@@ -10,7 +10,7 @@ class transactions extends Component {
 	
 	  this.state = {
 	  	accounts: [],
-	  	alltransactions: [],
+	  	transactionsList: [],
 	  	isLoading: false,
 	  };
 	}
@@ -18,22 +18,47 @@ class transactions extends Component {
 		this.setState({ isLoading: true });
 		fetch(API)
 		.then(response=> response.json())
-		.then(data => this.setState({
-			accounts: data.accounts,
-			alltransactions: data.transactionData.transactions,
-			isLoading: false, 
-		}));
+		.then((data) => {
+			allTrasnactions = data.transactionData.transactions;
+			this.setState({
+				accounts: data.accounts,
+				transactionsList: data.transactionData.transactions,
+				isLoading: false, 
+			})
+		});
 	}
 
 
+	filterTrasnactionByAccount(value){
+		if(value == "NO FILTER"){
+			this.setState({transactionsList:allTrasnactions});
+		}else{
+				var accountId = this.state.accounts.filter((account)=>{
+								return account.accountName == value;
+							})[0].accountId;
+		
+				var filteredTrasnactions = allTrasnactions.filter((trasnaction)=>{
+					return trasnaction.accountId == accountId; 
+				});
+				this.setState({transactionsList:filteredTrasnactions});
+			}
+	}
   render() {
-  	const { accounts, alltransactions, isLoading } = this.state;
+  	const { accounts, isLoading,transactionsList } = this.state;
   	if(isLoading) {
   		return <p>Loading...</p>;
   	}
     return (
       <div>
-    	<table >
+
+      <select onChange={(event)=>{this.filterTrasnactionByAccount(event.target.value)}}>
+      <option value="NO FILTER">NO FILTER</option>
+      {accounts.map((account)=>{
+      	return (<option value={account.accountName}>{account.accountName}</option>);
+      })}
+	</select>
+
+    	<table>
     	  <tr>
 		    <th>Account name</th>
 		    <th>Account number</th>
@@ -44,9 +69,7 @@ class transactions extends Component {
 			<th>Running balance</th>
 		    <th>Description</th>
   		</tr>
-    		{alltransactions.map((trasnaction) => 
- 			 {
- 			 	// console.log("mapping account "+account);
+    		{transactionsList.map((trasnaction) => {
  			 	var accountName = accounts.filter((account)=>{
 				 				return account.accountId == trasnaction.accountId;
 				 			})[0].accountName;
@@ -67,9 +90,5 @@ class transactions extends Component {
     );
   }
 }
-/*
-    	{alltransactions.map(transaction =>
-    		<li> { transaction.description } </li>
-    		)}
-*/
+let allTrasnactions = null;
 export default transactions;
