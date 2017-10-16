@@ -174,13 +174,13 @@ class transactions extends Component {
 				<div>
 				<div>
 				<label> Filter transactions by category: </label>
-				
 					<select id="category" multiple onChange={(event)=>{this.handleInputChange(event)}}>
 					<option></option>
 			    	  {categories.map((category)=>{
 				      	return (<option value={category}>{category}</option>);
 			    	  })}					  
 					</select>
+					<h6> To select multiple categories hold CMD and click on the category </h6> 
 					</div>
 				</div>
 				<div>
