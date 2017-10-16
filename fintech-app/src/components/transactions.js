@@ -167,6 +167,9 @@ class transactions extends Component {
 
   render() {
   	const { accounts, isLoading,transactionsList, categories } = this.state;
+    	if(isLoading) {
+    		return <h3> Loading... </h3>
+    	}
     return (
       <div>
 	      <form id="form">
