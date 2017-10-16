@@ -140,14 +140,36 @@ class transactions extends Component {
     this.search();
     
   }
-
+  getBalance(){
+  	var totalBalance = 0;
+  	var value = this.state.searchCriteria.account;
+  	if(value == "NO FILTER"){
+  		for(var i = 0; i<this.state.accounts.length;i++){
+  			totalBalance += this.state.accounts[i].balance;
+  		}
+  	}else{
+		totalBalance = this.state.accounts.filter((account)=>{
+						return account.accountName == value;
+					})[0].balance;
+	}
+	
+  	return (<label>${totalBalance}</label>);
+  }
+  reset(){
+  	var searchCriteria= this.state.searchCriteria;
+  	searchCriteria.account = 'NO FILTER';
+	searchCriteria.categories =[];
+	searchCriteria.sort = 3;
+  	this.setState({searchCriteria});
+  	this.search();
+  	document.getElementById("form").reset();
+  }
 
   render() {
   	const { accounts, isLoading,transactionsList, categories } = this.state;
-
     return (
       <div>
-	      <div>
+	      <form id="form">
 				<div>
 					<select id="category" multiple onChange={(event)=>{this.handleInputChange(event)}}>
 					<option></option>
@@ -167,8 +189,10 @@ class transactions extends Component {
 			    	  <option value="NewestToOldest">Newest to oldest</option>
 			    	  <option value="OldestToNewest">Oldest to newest</option>
 				</select>			
-				<div><input type="submit" value="Submit" /></div>
-			</div> 
+			<button type="button" onClick={()=>{this.reset() }}>Reset</button>
+			</form> 
+			<div className="CurrentBalance"><label><b>Current balance:</b>{this.getBalance()}</label></div>
+
     	<table>
     	  <tr>
 		    <th>Account name</th>

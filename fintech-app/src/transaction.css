@@ -3,7 +3,11 @@ table {
     border-collapse: collapse;
     width: 100%;
 }
-
+.CurrentBalance {
+    background-color: #dddddd;
+    width: 100%;
+    text-align: left;
+}
 td, th {
     border: 1px solid #dddddd;
     text-align: left;
