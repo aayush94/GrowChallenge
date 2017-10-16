@@ -144,16 +144,16 @@ class transactions extends Component {
   	var totalBalance = 0;
   	var value = this.state.searchCriteria.account;
   	if(value == "NO FILTER"){
-  		for(var i = 0; i<this.state.accounts.length;i++){
-  			totalBalance += this.state.accounts[i].balance;
-  		}
+  		//for(var i = 0; i<this.state.accounts.length;i++){
+  			totalBalance = "Select one of the accounts to see your current balance"
+  		//}
   	}else{
-		totalBalance = this.state.accounts.filter((account)=>{
+		totalBalance = "$" + this.state.accounts.filter((account)=>{
 						return account.accountName == value;
 					})[0].balance;
 	}
 	
-  	return (<label>${totalBalance}</label>);
+  	return (<label>{totalBalance}</label>);
   }
   reset(){
   	var searchCriteria= this.state.searchCriteria;
