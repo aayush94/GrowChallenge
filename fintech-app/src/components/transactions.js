@@ -153,7 +153,7 @@ class transactions extends Component {
 					})[0].balance;
 	}
 	
-  	return (<label>{totalBalance}</label>);
+  	return (<label> {totalBalance}</label>);
   }
   reset(){
   	var searchCriteria= this.state.searchCriteria;
@@ -170,26 +170,41 @@ class transactions extends Component {
     return (
       <div>
 	      <form id="form">
+				<div className="filters">
 				<div>
+				<div>
+				<label> Filter transactions by category: </label>
+				
 					<select id="category" multiple onChange={(event)=>{this.handleInputChange(event)}}>
 					<option></option>
 			    	  {categories.map((category)=>{
 				      	return (<option value={category}>{category}</option>);
 			    	  })}					  
 					</select>
+					</div>
 				</div>
+				<div>
+				<label> Filter transactions by account: </label>
 			      <select onChange={(event)=>{this.handleInputChange(event)}}>
 				      <option value="NO FILTER">NO FILTER</option>
 			    	  {accounts.map((account)=>{
 				      	return (<option value={account.accountName}>{account.accountName}</option>);
 			    	  })}
 				</select>
+				</div>
+				<div>
+				<label> Sort transactions: </label>
 			      <select id="sort" onChange={(event)=>{this.handleInputChange(event)}}>
 				      <option value="Unsorted">Unsorted</option>
 			    	  <option value="NewestToOldest">Newest to oldest</option>
 			    	  <option value="OldestToNewest">Oldest to newest</option>
-				</select>			
+				</select>
+				</div>
+				<div>
+				<label> Reset all the filters: </label>			
 			<button type="button" onClick={()=>{this.reset() }}>Reset</button>
+			</div>
+			</div>
 			</form> 
 			<div className="CurrentBalance"><label><b>Current balance:</b>{this.getBalance()}</label></div>
 

@@ -1,19 +1,26 @@
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    border: 5px solid black;
+}
+.filters {
+    padding: 10px;
 }
 .CurrentBalance {
     background-color: #dddddd;
     width: 100%;
     text-align: left;
+    padding: 10px;
 }
 td, th {
-    border: 1px solid #dddddd;
+    border: 1px solid black;
     text-align: left;
     padding: 8px;
 }
 
 tr:nth-child(even) {
     background-color: #dddddd;
+   
 }
